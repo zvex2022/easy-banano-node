@@ -25,5 +25,5 @@
 6. Enter the following command to start the setup:
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/nanotools/easy-nano-node/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/BitDesert/easy-banano-node/master/install.sh)
 ```

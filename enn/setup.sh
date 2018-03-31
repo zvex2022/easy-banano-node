@@ -3,11 +3,11 @@
 # goto script dir
 cd "$(dirname "$0")"
 
-echo "== Cloning Nano Node Monitor"
-git -C /opt/nanoNodeMonitor pull || git clone https://github.com/nanotools/nanoNodeMonitor.git /opt/nanoNodeMonitor
+echo "== Cloning Banano Node Monitor"
+git -C /opt/bananoNodeMonitor pull || git clone https://github.com/nanotools/nanoNodeMonitor.git /opt/bananoNodeMonitor
 
 echo "== Updating Docker images"
-sudo docker pull nanocurrency/nano
+sudo docker pull bananocoin/banano
 sudo docker pull php:7.2-apache
 
 echo "== Starting Docker containers"
@@ -17,43 +17,49 @@ echo "== Take a deep breath..."
 # we need this as the node is crashing if we go on too fast
 sleep 5s
 
-if [ -f /opt/nanoNodeMonitor/modules/config.php ]; then
+if [ -f /opt/bananoNodeMonitor/modules/config.php ]; then
 
-  echo "== Nano node directory exists, skipping initialization..."
+  echo "== Banano node directory exists, skipping initialization..."
 
 else
 
   echo "== Creating wallet"
-  wallet=$(docker exec enn_nanonode_1 /usr/bin/rai_node --wallet_create)
+  wallet=$(docker exec enn_bananonode_1 /usr/bin/bananode --wallet_create)
 
   echo "== Creating account"
-  account=$(docker exec enn_nanonode_1 /usr/bin/rai_node --account_create --wallet=$wallet | cut -d ' ' -f2)
+  account=$(docker exec enn_bananonode_1 /usr/bin/bananode --account_create --wallet=$wallet | cut -d ' ' -f2)
 
   echo "== Creating monitor config"
-  cp /opt/nanoNodeMonitor/modules/config.sample.php /opt/nanoNodeMonitor/modules/config.php
+  cp /opt/bananoNodeMonitor/modules/config.sample.php /opt/bananoNodeMonitor/modules/config.php
 
   echo "== Modifying the monitor config"
 
   # uncomment account
-  sed -i -e 's#// $nanoNodeAccount#$nanoNodeAccount#g' /opt/nanoNodeMonitor/modules/config.php
+  sed -i -e 's#// $nanoNodeAccount#$nanoNodeAccount#g' /opt/bananoNodeMonitor/modules/config.php
 
   # replace account
-  sed -i -e "s/xrb_1f56swb9qtpy3yoxiscq9799nerek153w43yjc9atoaeg3e91cc9zfr89ehj/$account/g" /opt/nanoNodeMonitor/modules/config.php
+  sed -i -e "s/xrb_1f56swb9qtpy3yoxiscq9799nerek153w43yjc9atoaeg3e91cc9zfr89ehj/$account/g" /opt/bananoNodeMonitor/modules/config.php
 
   # uncomment ip
-  sed -i -e 's#// $nanoNodeRPCIP#$nanoNodeRPCIP#g' /opt/nanoNodeMonitor/modules/config.php
+  sed -i -e 's#// $nanoNodeRPCIP#$nanoNodeRPCIP#g' /opt/bananoNodeMonitor/modules/config.php
 
   # replace ip
-  sed -i -e 's#\[::1\]#enn_nanonode_1#g' /opt/nanoNodeMonitor/modules/config.php
+  sed -i -e 's#\[::1\]#enn_bananonode_1#g' /opt/bananoNodeMonitor/modules/config.php
+
+  # uncomment port
+  sed -i -e 's#// $nanoNodeRPCPort#$nanoNodeRPCPort#g' /opt/bananoNodeMonitor/modules/config.php
+
+  # replace port
+  sed -i -e 's#7076#7072#g' /opt/bananoNodeMonitor/modules/config.php
 
   echo "== Disabling RPC logging"
   sed -i -e 's#"log_rpc": "true"#"log_rpc": "false"#g' ~/RaiBlocks/config.json
 
-  echo "== Opening Nano Node Port"
-  sudo ufw allow 7075
+  echo "== Opening Banano Node Port"
+  sudo ufw allow 7071
 
-  echo "== Restarting Nano node container"
-  sudo docker restart enn_nanonode_1
+  echo "== Restarting Banano node container"
+  sudo docker restart enn_bananonode_1
 
   echo "== Just some final magic..."
   # restart because we changed the config.json
@@ -64,7 +70,7 @@ else
 
   echo -e "=== \e[31mYOUR WALLET SEED\e[39m ==="
   echo "Please write down your wallet seed to a piece of paper and store it safely!"
-  docker exec enn_nanonode_1 /usr/bin/rai_node --wallet_decrypt_unsafe --wallet=$wallet
+  docker exec enn_bananonode_1 /usr/bin/bananode --wallet_decrypt_unsafe --wallet=$wallet
   echo -e "=== \e[31mYOUR WALLET SEED\e[39m ==="
 
 fi
@@ -73,5 +79,5 @@ serverip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([
 
 echo ""
 echo "All done! *yay*"
-echo "View your Nano Node Monitor at http://$serverip"
+echo "View your Banano Node Monitor at http://$serverip"
 echo ""
