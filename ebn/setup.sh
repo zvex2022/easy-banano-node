@@ -24,10 +24,10 @@ if [ -f /opt/bananoNodeMonitor/modules/config.php ]; then
 else
 
   echo "== Creating wallet"
-  wallet=$(docker exec enn_bananonode_1 /usr/bin/bananode --wallet_create)
+  wallet=$(docker exec ebn_bananonode_1 /usr/bin/bananode --wallet_create)
 
   echo "== Creating account"
-  account=$(docker exec enn_bananonode_1 /usr/bin/bananode --account_create --wallet=$wallet | cut -d ' ' -f2)
+  account=$(docker exec ebn_bananonode_1 /usr/bin/bananode --account_create --wallet=$wallet | cut -d ' ' -f2)
 
   echo "== Creating monitor config"
   cp /opt/bananoNodeMonitor/modules/config.sample.php /opt/bananoNodeMonitor/modules/config.php
@@ -44,7 +44,7 @@ else
   sed -i -e 's#// $nanoNodeRPCIP#$nanoNodeRPCIP#g' /opt/bananoNodeMonitor/modules/config.php
 
   # replace ip
-  sed -i -e 's#\[::1\]#enn_bananonode_1#g' /opt/bananoNodeMonitor/modules/config.php
+  sed -i -e 's#\[::1\]#ebn_bananonode_1#g' /opt/bananoNodeMonitor/modules/config.php
 
   # uncomment port
   sed -i -e 's#// $nanoNodeRPCPort#$nanoNodeRPCPort#g' /opt/bananoNodeMonitor/modules/config.php
@@ -59,7 +59,7 @@ else
   sudo ufw allow 7071
 
   echo "== Restarting Banano node container"
-  sudo docker restart enn_bananonode_1
+  sudo docker restart ebn_bananonode_1
 
   echo "== Just some final magic..."
   # restart because we changed the config.json
@@ -70,7 +70,7 @@ else
 
   echo -e "=== \e[31mYOUR WALLET SEED\e[39m ==="
   echo "Please write down your wallet seed to a piece of paper and store it safely!"
-  docker exec enn_bananonode_1 /usr/bin/bananode --wallet_decrypt_unsafe --wallet=$wallet
+  docker exec ebn_bananonode_1 /usr/bin/bananode --wallet_decrypt_unsafe --wallet=$wallet
   echo -e "=== \e[31mYOUR WALLET SEED\e[39m ==="
 
 fi
