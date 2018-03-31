@@ -4,7 +4,7 @@ services:
     image: "php:7.2-apache"
     restart: "unless-stopped"
     ports:
-     - "80:80"
+     - "8072:80"
     volumes:
      - "/opt/bananoNodeMonitor:/var/www/html"
   bananonode:
