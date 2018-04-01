@@ -1,4 +1,4 @@
-# Setup a Nano Node on Ubuntu 16.04
+# Setup a Banano Node on Ubuntu 16.04
 
 1. Add GPG keys
  
@@ -27,5 +27,5 @@ sudo apt-get install -y docker-ce
 5. Enter the following command to start the setup:
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/BitDesert/easy-banano-node/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/BananoTools/easy-banano-node/master/install.sh)
 ```

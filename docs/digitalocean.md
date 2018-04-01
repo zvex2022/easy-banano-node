@@ -1,4 +1,4 @@
-# Setup a Nano Node on DigitalOcean
+# Setup a Banano Node on DigitalOcean
 
 1. Sign up on DigitalOcean [with this link to get 10$ credit for free](https://m.do.co/c/f47f91d0d534)
 
@@ -25,5 +25,5 @@
 6. Enter the following command to start the setup:
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/BitDesert/easy-banano-node/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/BananoTools/easy-banano-node/master/install.sh)
 ```

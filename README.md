@@ -1,13 +1,13 @@
-# Easy Nano Node
+# Easy Banano Node
 
-https://nanotools.github.io/easy-banano-node/
+https://bananotools.github.io/easy-banano-node/
 
-Nano nodes made simple!
+Banano nodes made simple!
 
 ## Installation
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/BitDesert/easy-banano-node/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/BananoTools/easy-banano-node/master/install.sh)
 ```
 
 ## Support

@@ -1,4 +1,4 @@
-# Setup a Nano Node
+# Setup a Banano Node
 
 Please choose your system below.
 
