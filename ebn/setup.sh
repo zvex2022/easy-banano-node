@@ -79,5 +79,5 @@ serverip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([
 
 echo ""
 echo "All done! *yay*"
-echo "View your Banano Node Monitor at http://$serverip"
+echo "View your Banano Node Monitor at http://$serverip:8072"
 echo ""
