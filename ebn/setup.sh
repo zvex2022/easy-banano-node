@@ -4,7 +4,7 @@
 cd "$(dirname "$0")"
 
 echo "== Cloning Banano Node Monitor"
-git -C /opt/bananoNodeMonitor pull || git clone https://github.com/nanotools/nanoNodeMonitor.git /opt/bananoNodeMonitor
+git -C /opt/bananoNodeMonitor pull || git clone https://github.com/BananoTools/bananoNodeMonitor.git /opt/bananoNodeMonitor
 
 echo "== Updating Docker images"
 sudo docker pull bananocoin/banano
@@ -53,7 +53,7 @@ else
   sed -i -e 's#7076#7072#g' /opt/bananoNodeMonitor/modules/config.php
 
   echo "== Disabling RPC logging"
-  sed -i -e 's#"log_rpc": "true"#"log_rpc": "false"#g' ~/RaiBlocks/config.json
+  sed -i -e 's#"log_rpc": "true"#"log_rpc": "false"#g' ~/Banano/config.json
 
   echo "== Opening Banano Node Port"
   sudo ufw allow 7071
