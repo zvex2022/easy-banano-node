@@ -7,7 +7,7 @@ Banano nodes made simple!
 ## Installation
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/BananoTools/easy-banano-node/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/zvex2022/easy-banano-node/master/install.sh)
 ```
 
 ## Support
